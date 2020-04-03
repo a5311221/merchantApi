@@ -3,10 +3,10 @@ Api for Ownbit Merchant Wallet
 
 Ownbit Merchant Wallet helps merchant accept Bitcoin & other cryptocurrencies for online payments. Integrating Ownbit Merchant Api is easy and straightforward. There are three parties: Merchant Website(your website for selling online goods), Ownbit Merchant Wallet, and Ownbit Platform. This is how the Api works:
 
-1. You create a Ownbit Merchant Wallet (you own the wallet mnemonics, thus control the coming crypto-payments fully), search Ownbit in iOS AppStore or download at https://ownbit.io.
-2. You integrate Ownbit Merchant Api into your existing website, so that your customer can select pay for your goods by Bitcoin & other cryptocurrencies.
+1. You create a Ownbit Merchant Wallet (you own the wallet mnemonics, thus control the coming crypto-payments fully), search Ownbit in iOS AppStore / Google Play or download at https://ownbit.io.
+2. You integrate Ownbit Merchant Api into your existing website, so that your customer can select pay for goods by Bitcoin & other cryptocurrencies.
 3. The customer paid, your Ownbit Merchant Wallet received the payment directly, and you can spend the received payment immediately, since you control the Ownbit Merchant Wallet fully.
-4. The Ownbit Platform call a callback_url (you provided when configuring the Ownbit Merchant Wallet) to notify your website that a payment is received (or a payment is canceled or failed in case of blockchain rollbacks).
+4. The Ownbit Platform call a callback_url (you configured in the Ownbit Merchant Wallet) to notify your website that a payment is received (or a payment is canceled or failed).
 
 ### TERMS & DEFINITION
 
@@ -70,7 +70,7 @@ Another example with fixed crypto rate (minPaidRate not given):
   "orderHash": "c55018f9017078d833124c603be839194a91a9adbf61bf0de5d800ddc8e07be0", 
   "walletId": "r89fdk3mrf1d",
   "orderId": "order12345", 
-  "orderPrice": "0.12 BTC" --> ask the customer pay 0.12 BTC regardless of the exchange rate
+  "orderPrice": "0.12 BTC" --> ask the customer to pay 0.12 BTC regardless of the exchange rate
 }
 ```
 
@@ -82,29 +82,34 @@ When the first time of this interface is called for a specific order ID, a new a
 		"crypto": [{
 			"address": "353GjPxEY1kd14QD8XzMKRCvuv4XwhkpDK",
 			"coinType": "BTC",
-			"indexNo": 9,  --> The BIP32 index for generating the address, example: m/49'/0'/0'/0/5, 5 is the index
-			"requestedAmount": "0.003778"  --> The amount for the specific coin the customer should pay
+			"indexNo": 9,  --> The BIP32 index for generating the address, example: m/49'/0'/0'/0/9, 9 is the index
+			"requestedAmount": "0.003778",  --> The amount for the specific coin the customer should pay
+			"exactMatch": false
 		}, {
 			"address": "qzpc2q53zres6eq32mc9a3ghque3urs8xvh9mq2f9x",
 			"coinType": "BCH",
 			"indexNo": 6,
-			"requestedAmount": "0.121193"
+			"requestedAmount": "0.121193",
+			"exactMatch": false
 		}, {
 			"address": "LUuqRpxZ43fqyxQxWxQZrxPuGLugb2h9FM",
 			"coinType": "LTC",
 			"indexNo": 2,
-			"requestedAmount": "0.510948"
+			"requestedAmount": "0.510948",
+			"exactMatch": false
 		}, {
 			"address": "0x3d0243Bba4eF808D9d98f8A6E7567a1e772Ef861",
 			"coinType": "ETH",
-			"indexNo": 0,
-			"requestedAmount": "0.1756324"
+			"indexNo": 11,
+			"requestedAmount": "0.1756324",
+			"exactMatch": false
 		}, {
 			"address": "0x3d0243Bba4eF808D9d98f8A6E7567a1e772Ef861",
 			"coinType": "USDT",
 			"contractAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-			"indexNo": 0,
-			"requestedAmount": "37.950888"
+			"indexNo": 11,
+			"requestedAmount": "37.950888",
+			"exactMatch": false
 		}],
 		"payment": {
 			"txHash": "ea6b0490a2e62d841677fc62cc1dd48eb987e8bc121c25ec0d4af9db116e6e9b",
@@ -116,7 +121,8 @@ When the first time of this interface is called for a specific order ID, a new a
 		},
 		"orderId": "order-example-0009",
 		"orderPrice": "270 CNY",
-		"minPaidRate": 0.95  --> Optional
+		"minPaidRate": 0.95,  --> Optional
+		"secondsLeft": 80000 --> Seconds left for receiving a new payment
 	},
 	"message": "success",
 	"status": 0
@@ -124,13 +130,14 @@ When the first time of this interface is called for a specific order ID, a new a
 ```
 
 > The "payment" block only exists after a valid payment is received.  
-> If an order is not paid within 24 hours, the allocated address will be revoked and reused.
+> The order must be paid before **secondsLeft** becomes 0, New payments for orders that have been timed out (secondsLeft 0) will be ignored.
+> The initial secondsLeft for an order is 82800 (23 hours). The allocated address for orders older than 24 hours will be revoked and reused.
 
 **amount** rules:
-- **For ETH/ERC20 tokens(USDT/DAI/USDC...)**: The received amount should be **exactly the same** as requested. Less or greater than requested will be treated as an invalid payment. Example, the requested amount is 1.234523 ETH, and the user paid 1.234524 ETH or 1.234522 ETH, will all be treated as invalid payments.
-- **For UTXO coins**: The received amount should be **equal or greater than** requested * **minPaidRate**. Example, the request is 0.123456 BTC and minPaidRate equals 1, the payment is 0.123455 BTC, it will be treated as invalid, no payment info will be returned, and no notification will be sent. If payment is 0.123456 BTC or 0.123457 BTC, then it will be treated as valid. When minPaidRate equals 0.98, the target amount will be: 0.123456 * 0.98 = 0.12098688 BTC, a payment of 0.123455 BTC will also be treated as valid.
+- **exactMatch**: this parameter is only for **ETH/ERC20 tokens(USDT/DAI/USDC...)**. When this value is true, means you are using ETH single address mode. In this case, the received amount must be **exactly the same** as requested. Less or greater than requested will be treated as invalid payments. Example, the requested amount is 1.234523 ETH, and the user paid 1.234524 ETH or 1.234522 ETH, will all be treated as invalid payments. When exactMatch is false, means you are using ETH multi-address mode. In that case, the amount rule is the same as the following rules for UTXO coins.
+- **For UTXO coins(BTC/BCH/LTC...)**: exactMatch for UTXO coins is always **false**. The received amount should be **equal or greater than** requested **plus** **minPaidRate**. Example, the request is 0.123456 BTC and minPaidRate equals 1, the payment is 0.123455 BTC, it will be treated as invalid, no payment info will be returned, and no notification will be sent. If payment is 0.123456 BTC or 0.123457 BTC, then it will be treated as valid. When minPaidRate equals 0.98, the target amount will be: 0.123456 * 0.98 = 0.12098688 BTC, a payment of 0.123455 BTC will also be treated as valid.
 
-**Note that minPaidRate only works for UTXO coins (not including ETH/ERC20 tokens), for ETH/ERC20 tokens, minPaidRate is always 1. The Merchant's Payment UI should always ask the customer to pay the exact amount showing in the page.**
+**Note: Merchant wallets created in Ownbit App(version >= 4.13.2) will use ETH multi-address mode by default. Old merchant wallets are operating in ETH single address mode. Upgrade your Ownbit App to the latest version, and re-import your merchant wallet (Backup your mnemonic, delete the wallet, re-import mnemonic) will make your old merchant wallet operating in ETH multi-address mode also.**
 
 **paymentStatus** can have the following value:
 - **0**: Initial status, no payment (or invalid payments);
@@ -138,9 +145,9 @@ When the first time of this interface is called for a specific order ID, a new a
 - **2**: A valid payment is received, status: confirmed;
 - **9**: The payment transaction is canceled or failed;
 
-> Note: The merchant should handle paymentStatus 9 in a proper manner. paymentStatus 9 can happen even after a transaction is confirmed (in case of blockchain rollback, even though it is very rare).
+> Note: The merchant should handle paymentStatus 9 in a proper manner. paymentStatus 9 can happen even after a transaction is confirmed (in case of blockchain rollback).
 
-If something is wrong for processing, or the merchant passed the wrong parameters, the Api returns corresponding error code:
+If something is wrong for processing, or you passed the wrong parameters for calling the interface, the Api will return the corresponding error code:
 
 ```
 {
@@ -157,12 +164,12 @@ A list of status codes are:
 - **-61**: Invalid Order Price
 - **-62**: Unsupported Fiat Currency
 - **-63**: Unsupported Coin Type
-- **-64**: Coin not open in corresponding Merchant Wallet
-- **-65**: Order ID and Order Price not match (Fetch orderId again with non-empty orderPrice, but with a different value of the first fetch)
-- **-66**: Can't generate more address 
+- **-64**: Coins not open in the corresponding Merchant Wallet
+- **-65**: Order ID and Order Price not match (Fetch orderId again with non-empty orderPrice, but with a different value than the first fetch)
+- **-66**: Can't generate more addresses
 - **-67**: Merchant Account not exists
 - **-68**: orderHash incorrect
-- **-202**: Invalid exchange rate for coin (Server side error)
+- **-202**: Invalid exchange rate for coins (Server side error)
 
 ### Fee
 
@@ -241,11 +248,12 @@ or
 - **B: The unconfirmed payment becomes confirmed;**
 - **C: A payment is canceled or failed;**
 
-The merchant might get multiple notifications for a payment. Possible notification cases are as follows:
+The merchant might get multiple notifications for a payment. Possible notification cases:
 
 > CASE 1: A -> B (First get notification A, then get B, the pyament comes to unconfirmed first, and then confirmed)  
 > CASE 2: B (the payment goes to confirmed directly, no unconfirmed state)  
 > CASE 3: A -> C (the payment goes to unconfirmed, and then canceled)    
+> CASE 4: B -> C (the payment goes to confirmed, and then canceled or failed, this sutiation can happen in case of block rollback.)    
 
 ### Trust Unconfirmed or Not? 
 
@@ -261,7 +269,7 @@ To get around of this problem, Ownbit suggests a general rule for merchants to f
 
 ### Integrate Ownbit Pay Page (Optional)
 
-If you won't integrate /getCryptoByOrderId Api in low level, you can use Ownbit Pay Page directly. For each order, you open an URL similar like below for payment:
+If you won't integrate /getCryptoByOrderId Api in low level, you can use Ownbit Pay Page directly. For each order, you open an URL like below:
 
 https://ownbit.io/pay/?orderId=order-online-example021&orderPrice=1.5%20CNY&minPaidRate=0.98&walletId=rufjlwgw839y&orderHash=c3874b2026331480aa03aad691e0c0da080e1201c7ac7dab064c60e79d2d79eb&coinType=BTC%7CETH%7CUSDT%7CBCH%7CLTC%7CDASH&orderSubject=Buy%20Pizza%20Online&orderDescription=A%20pizza%208-10%20inches%20with%206%20slices.&lang=en
 
@@ -297,9 +305,13 @@ var encodedParam = encodeURI(param);
 
 **Java code for integrating /getCryptoByOrderId Api and orderHash computing is in the java directly.**
 
+### Miscellaneous
 
+**Max orders within 1 day**: The maximum new orders a merchant can open within 1 day is **100000**. If you want more, please contact us through email: **hi@bitbill.com**.
+**ETH balances for multi-address**: If you are using ETH multi-address, notice that balances in other addresses will not be counted in the main address by default. That's to say the balance you see in your Ownbit wallet is less than the total balances you have. The Ownbit merchant wallet is now providing a tool for you to collect those balances into your ETH main address. Find the tool in your wallet's ETH coin page (a link named: Manage Balances on top of the page).
 
+### Technical Support
 
-
-
-
+If you have any problem integrating with Ownbit merchant Api, please feel free to contact us:
+**By Email**: hi@bitbill.com
+**By Telegram**: https://t.me/ownbit
