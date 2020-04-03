@@ -74,7 +74,7 @@ Another example with fixed crypto rate (minPaidRate not given):
 }
 ```
 
-When the first time of this interface is called for a specific order ID, a new address for each requested coin types is allocated. Success Response:
+When the first time of this interface is called for a specific order ID, a new address for each requested coin type is allocated. Success Response:
 
 ```
 {
