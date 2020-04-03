@@ -307,11 +307,11 @@ var encodedParam = encodeURI(param);
 
 ### Miscellaneous
 
-**Max orders within 1 day**: The maximum new orders a merchant can open within 1 day is **100000**. If you want more, please contact us through email: **hi@bitbill.com**.
+**Max orders within 1 day**: The maximum new orders a merchant can open within 1 day is **100000**. If you want more, please contact us through email: **hi@bitbill.com**.  
 **ETH balances for multi-address**: If you are using ETH multi-address, notice that balances in other addresses will not be counted in the main address by default. That's to say the balance you see in your Ownbit wallet is less than the total balances you have. The Ownbit merchant wallet is now providing a tool for you to collect those balances into your ETH main address. Find the tool in your wallet's ETH coin page (a link named: Manage Balances on top of the page).
 
 ### Technical Support
 
-If you have any problem integrating with Ownbit merchant Api, please feel free to contact us:
-**By Email**: hi@bitbill.com
+If you have any problem integrating with Ownbit merchant Api, please feel free to contact us:  
+**By Email**: hi@bitbill.com. 
 **By Telegram**: https://t.me/ownbit
