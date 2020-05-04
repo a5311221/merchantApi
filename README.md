@@ -47,8 +47,8 @@ Merchant Api Supported Fiat currency:
 
 ### Api
 
-- **https://walletservice.bittool.com:14443/bitbill/merchant/getCryptoByOrderId**  (Main node)
-- **https://walletserviceh2.bittool.com:14443/bitbill/merchant/getCryptoByOrderId**  (Hongkong node)
+- **https://merchantservice.bittool.com:14443/bitbill/merchant/getCryptoByOrderId**  (Main node)
+- **https://merchantserviceh2.bittool.com:14443/bitbill/merchant/getCryptoByOrderId**  (Hongkong node)
 
 The two nodes are operating the same way. You can choose to use one of them acorrding to the network speed you reach them. 
 
