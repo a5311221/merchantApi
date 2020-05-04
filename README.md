@@ -50,6 +50,8 @@ Merchant Api Supported Fiat currency:
 - **https://walletservice.bittool.com:14443/bitbill/merchant/getCryptoByOrderId**  (Main node)
 - **https://walletserviceh2.bittool.com:14443/bitbill/merchant/getCryptoByOrderId**  (Hongkong node)
 
+The two nodes are operating the same way. You can choose to use one of them acorrding to the network speed you reach them. 
+
 > Get crypto info by an order ID, method: POST, POST data is in JSON format:
 
 ```
