@@ -281,7 +281,7 @@ https://ownbit.io/pay/?orderId=order-online-example021&orderPrice=1.5%20CNY&minP
 - **orderPrice**: same as /getCryptoByOrderId Api.
 - **walletId**: same as /getCryptoByOrderId Api.
 - **orderHash**: same as /getCryptoByOrderId Api.
-- **coinType**: same as /getCryptoByOrderId Api.
+- **coinType**: same as /getCryptoByOrderId Api (You can change the sequence of the coin types. For example, 'BTC|ETH|USDT' will make BTC as the default payment type, while 'ETH|BTC|USDT' will make the ETH as the default payment type.)
 - **minPaidRate**: (Optional)same as /getCryptoByOrderId Api.
 - **orderSubject**: The Subject for the order.
 - **orderDescription**: The description text for the order.
