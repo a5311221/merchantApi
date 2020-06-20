@@ -270,27 +270,27 @@ To get around of this problem, Ownbit suggests a general rule for merchants to f
 > - It's very difficult and very rare for unconfirmed payments get canceled if the rbf is false. But it's not to say impossible in theory. 
 > - Merchants should get well prepared for handle notification of paymentStatus 9, to deal with payments cancelation.
 
-### Integrate Ownbit Pay Page (Optional)
+### Integrate Ownbit Pay page (Optional)
 
 If you won't integrate /getCryptoByOrderId Api in low level, you can use Ownbit Pay Page directly. For each order, you open an URL like below:
 
 https://ownbit.io/pay/?orderId=order-online-example021&orderPrice=1.5%20CNY&minPaidRate=0.98&walletId=rufjlwgw839y&orderHash=c3874b2026331480aa03aad691e0c0da080e1201c7ac7dab064c60e79d2d79eb&coinType=BTC%7CETH%7CUSDT%7CBCH%7CLTC%7CDASH&orderSubject=Buy%20Pizza%20Online&orderDescription=A%20pizza%208-10%20inches%20with%206%20slices.&lang=en
 
-The Ownbit Pay Page looks like this:
+The Ownbit Pay page looks like this:
 
 ![image](https://bitbill.oss-accelerate.aliyuncs.com/pics/ownbit-pay-example.jpeg)
 
-**Parameters for Pay Page:**
+**Parameters for Pay page:**
 - **orderId**: same as /getCryptoByOrderId Api.
 - **orderPrice**: same as /getCryptoByOrderId Api.
 - **walletId**: same as /getCryptoByOrderId Api.
 - **orderHash**: same as /getCryptoByOrderId Api.
-- **coinType**: same as /getCryptoByOrderId Api (You can change the sequence of the coin types. For example, 'BTC|ETH|USDT' will make BTC as the default payment type, while 'ETH|BTC|USDT' will make the ETH as the default payment type.)
+- **coinType**: same as /getCryptoByOrderId Api (You can change the sequence of the coin types. For example, 'BTC|ETH|USDT' will make BTC as the default payment coin, while 'ETH|BTC|USDT' will make the ETH as the default payment coin.)
 - **minPaidRate**: (Optional)same as /getCryptoByOrderId Api.
 - **orderSubject**: The Subject for the order.
 - **orderDescription**: The description text for the order.
-- **redirectUrl**: (Optional)The url to redirect after the payment success. Example: https://mywebsite.com/paysuccess?orderId=order-online-example021 (Note that all parameters passed in should be URLEncoded.)
-- **appCallback**: (Optional)Callback to the merchant's app after payment success. Value can be: **iOS** or **Android**
+- **redirectUrl**: (Optional)The url to redirect after payment success. Example: https://mywebsite.com/paysuccess?orderId=order-online-example021 (Note that the entire content should be URLEncoded.)
+- **appCallback**: (Optional)Callback to the merchant's app after payment success. Value can be: **iOS** or **Android**.
 - **lang**: the page language, allowed values are:
    - **en**: English, default
    - **cn**: Simplified Chinese
@@ -299,7 +299,7 @@ The Ownbit Pay Page looks like this:
    - **kr**: Korean
    - **ru**: Russian
 
-**Note that all parameters should be URLEncoded. Example, an URLEncoded value of "1.3 CNY" is "1.3%20CNY", while an URLEncoded value of "https://mywebsite.com/paysuccess?orderId=order-online-example021" is "https%3A%2F%2Fmywebsite.com%2Fpaysuccess%3ForderId%3Dorder-online-example021"**   
+**Note that all parameters should be URLEncoded. Example, an URLEncoded value of "1.3 CNY" is "1.3%20CNY", while an URLEncoded value of "https://mywebsite.com/paysuccess?orderId=order-online-example021" is "https%3A%2F%2Fmywebsite.com%2Fpaysuccess%3ForderId%3Dorder-online-example021"**.
 
 JS code example for URLEncode:
 
@@ -315,7 +315,7 @@ Value can be **iOS** or **Android** (Case insensitive), When value **iOS** is gi
 
 ```
 // js code to call swiftSuccessCallback
-swiftSuccessCallback("ownbitpay", orderId); //js tell the iOS app that this orderId has just received a successful payment.
+swiftSuccessCallback("ownbitpay", orderId); //js tells the iOS app that this orderId has just received a successful payment.
 ```
 
 In your swift code, you can register the callback similar as follows:
@@ -336,7 +336,7 @@ When value **Android** is given, the Ownbit Pay page will try to call **android.
 
 ```
 // js code to call android.jsSuccessHandler
-android.jsSuccessHandler("ownbitpay", orderId); //js tell the Android app that this orderId has just received a successful payment.
+android.jsSuccessHandler("ownbitpay", orderId); //js tells the Android app that this orderId has just received a successful payment.
 ```
 
 In your Android code, you can register the callback similar as follows:
