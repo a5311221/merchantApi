@@ -276,6 +276,9 @@ If you won't integrate /getCryptoByOrderId Api in low level, you can use Ownbit 
 
 https://ownbit.io/pay/?orderId=order-online-example021&orderPrice=1.5%20CNY&minPaidRate=0.98&walletId=rufjlwgw839y&orderHash=c3874b2026331480aa03aad691e0c0da080e1201c7ac7dab064c60e79d2d79eb&coinType=BTC%7CETH%7CUSDT%7CBCH%7CLTC%7CDASH&orderSubject=Buy%20Pizza%20Online&orderDescription=A%20pizza%208-10%20inches%20with%206%20slices.&lang=en
 
+The Ownbit Pay Page looks like this:
+![image](https://bitbill.oss-accelerate.aliyuncs.com/pics/ownbit-pay-example2.jpeg)
+
 **Parameters for Pay Page:**
 - **orderId**: same as /getCryptoByOrderId Api.
 - **orderPrice**: same as /getCryptoByOrderId Api.
