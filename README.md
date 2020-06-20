@@ -285,6 +285,8 @@ https://ownbit.io/pay/?orderId=order-online-example021&orderPrice=1.5%20CNY&minP
 - **minPaidRate**: (Optional)same as /getCryptoByOrderId Api.
 - **orderSubject**: The Subject for the order.
 - **orderDescription**: The description text for the order.
+- **redirectUrl**: (Optional)The url to redirect after the payment success. Example: https://mywebsite.com/paysuccess?orderId=order-online-example021 (Note that all parameters passed in should be URLEncoded.)
+- **appCallback**: (Optional)Callback to the merchant's app after payment success. Value can be: **iOS** or **Android**
 - **lang**: the page language, allowed values are:
    - **en**: English, default
    - **cn**: Simplified Chinese
@@ -293,7 +295,7 @@ https://ownbit.io/pay/?orderId=order-online-example021&orderPrice=1.5%20CNY&minP
    - **kr**: Korean
    - **ru**: Russian
 
-**All parameters are URLEncoded. Example, an URLEncoded value of "1.3 CNY" is "1.3%20CNY"**   
+**Note that all parameters should be URLEncoded. Example, an URLEncoded value of "1.3 CNY" is "1.3%20CNY", while an URLEncoded value of "https://mywebsite.com/paysuccess?orderId=order-online-example021" is "https%3A%2F%2Fmywebsite.com%2Fpaysuccess%3ForderId%3Dorder-online-example021"**   
 
 JS code example for URLEncode:
 
@@ -302,6 +304,55 @@ JS code example for URLEncode:
 var param = "A pizza 8-10 inches with 6 slices";
 var encodedParam = encodeURI(param);
 // OUTPUT: A%20pizza%208-10%20inches%20with%206%20slices
+```
+
+**appCallback**
+Value can be **iOS** or **Android** (Case insensitive), When value **iOS** is given, the Ownbit Pay page will try to call **swiftSuccessCallback** of the merchant's App.
+
+```
+// js code to call swiftSuccessCallback
+swiftSuccessCallback("ownbitpay", orderId); //js tell the iOS app that this orderId has just received a successful payment.
+```
+
+In your swift code, you can register the callback similar as follows:
+
+```
+//register js callback to swift
+let swiftSuccessBlock = unsafeBitCast(self.swiftSuccessHandler, to: AnyObject.self)
+self.jsContextWeb.setObject(swiftSuccessBlock, forKeyedSubscript: "swiftSuccessCallback" as (NSCopying & NSObjectProtocol))
+
+let swiftSuccessHandler: @convention(block) (String, String) -> Void = {(funcName, result) in
+        if funcName == "ownbitpay" {
+            //do something, result contains the orderId string
+        }
+}
+```
+
+When value **Android** is given, the Ownbit Pay page will try to call **android.jsSuccessHandler** of the merchant's App.
+
+```
+// js code to call android.jsSuccessHandler
+android.jsSuccessHandler("ownbitpay", orderId); //js tell the Android app that this orderId has just received a successful payment.
+```
+
+In your Android code, you can register the callback similar as follows:
+
+```
+//create WebView
+WebView mWebView = new WebView(context);
+mWebView.addJavascriptInterface(this, "android"); //this is to register the javascript interface
+WebSettings webSettings = mWebView.getSettings();
+webSettings.setJavaScriptEnabled(true);
+webSettings.setAllowUniversalAccessFromFileURLs(true);
+...
+
+//add JavascriptInterface
+@JavascriptInterface
+public void jsSuccessHandler(String func, String result){
+	if (func.equals("ownbitpay")) {
+		//do something, result contains the orderId string
+	}
+}
 ```
 
 ### Java code 
