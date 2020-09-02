@@ -316,19 +316,23 @@ Value can be **iOS** or **Android** (Case insensitive), When value **iOS** is gi
 
 ```
 // js code to call swiftSuccessCallback
-swiftSuccessCallback("ownbitpay", orderId); //js tells the iOS app that this orderId has just received a successful payment.
+window.webkit.messageHandlers.obMessage.postMessage(orderId); //js tells the iOS app that this orderId has just received a successful payment.
 ```
 
 In your swift code, you can register the callback similar as follows:
 
 ```
 //register js callback to swift
-let swiftSuccessBlock = unsafeBitCast(self.swiftSuccessHandler, to: AnyObject.self)
-self.jsContextWeb.setObject(swiftSuccessBlock, forKeyedSubscript: "swiftSuccessCallback" as (NSCopying & NSObjectProtocol))
+webView.configuration.userContentController.add(self, name: "obMessage") //for js callback
 
-let swiftSuccessHandler: @convention(block) (String, String) -> Void = {(funcName, result) in
-        if funcName == "ownbitpay" {
-            //do something, result contains the orderId string
+func userContentController(_ userContentController: WKUserContentController,
+                               didReceive message: WKScriptMessage) {
+        switch message.name {
+        case "obMessage":
+            let result = (message.body as? String) ?? ""
+	    //result is the orderId
+	    //do something in your app
+	default: break
         }
 }
 ```
