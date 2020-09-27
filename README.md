@@ -186,7 +186,7 @@ The Ownbit Platform charges **2% - 0.3%** of transaction volume as the processin
 }
 ```
 
-Fee rate for different volume range :
+Ownbit charges merchants very small fee (0.5% - 0.05%), compared with Bitpay which is 1%. Fee rate for different volume range :
 - **0.5%**: Total processed volume less than 1,000 USD
 - **0.4%**: Total processed volume between 1,000 USD - 10,000 USD
 - **0.3%**: Total processed volume between 10,000 USD - 100,000 USD
