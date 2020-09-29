@@ -312,7 +312,7 @@ var encodedParam = encodeURI(param);
 ```
 
 **appCallback**
-Value can be **iOS** or **Android** (Case insensitive), When value **iOS** is given, the Ownbit Pay page will try to call **swiftSuccessCallback** of the merchant's App.
+Value can be **iOS** or **Android** (Case insensitive), When value **iOS** is given, the Ownbit Pay page will try to post a message to the merchant's App when the payment becomes success (assume the merchant's App is using WKWebView).
 
 ```
 // js code to call swiftSuccessCallback
