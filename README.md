@@ -141,13 +141,13 @@ When the first time of this interface is called for a specific order ID, a new a
 - **exactMatch**: this parameter is only for **ETH/ERC20 tokens(USDT/DAI/USDC...)**. When this value is true, means you are using single address mode. In this case, the received amount must be **exactly the same** as requested. Less or greater than requested will be treated as invalid payments. Example, the requested amount is 1.234523 ETH, and the user paid 1.234524 ETH or 1.234522 ETH, will all be treated as invalid payments. When exactMatch is false, means you are using multi-address mode. In that case, the amount rule is the same as the following rules for UTXO coins.
 - **For UTXO coins(BTC/BCH/LTC...)**: exactMatch for UTXO coins is always **false**. The received amount should be **equal or greater than** requested **plus** **minPaidRate**. Example, the request is 0.123456 BTC and minPaidRate equals 1, the payment is 0.123455 BTC, it will be treated as invalid, no payment info will be returned, and no notification will be sent. If payment is 0.123456 BTC or 0.123457 BTC, then it will be treated as valid. When minPaidRate equals 0.98, the target amount will be: 0.123456 * 0.98 = 0.12098688 BTC, a payment of 0.123455 BTC will also be treated as valid.
 
-**ETH/ERC20 Address mode**
-For ETH and ERC20 tokens, your merchant wallet can have two type of different modes: **Single address mode** and **Multiple address mode**. Differences between them are:
+**ETH/ERC20 Address mode**. 
+For ETH and ERC20 tokens, your merchant wallet can have two type of different modes: **Single address mode** and **Multiple address mode**. Differences between them are:  
 - Multiple address mode uses different ETH address for each order request, while Single address mode uses the same ETH address for order requests.
 - Multiple address mode can support up to 100k orders per day (totally 100k addresses can be generated), while Single address mode supports less. Single address mode uses different amount for each order equest, and by matching the amount exactly to distinguish different payments.
 - Single address mode needs the user to pay EXACTLY the amount it requests. Pay slightly more or less is not valid.
 - For Multiple address mode, balances in other addresses will not be counted in the main address by default. That's to say the balance you see in your Ownbit wallet is less than the total balances you have. The Ownbit merchant wallet is now providing a tool for you to collect those balances into your ETH main address. Find the tool in your wallet's ETH coin page (a link named: Manage Balances on top of the page).
-- Merchant wallets are default to use Multiple address mode. If you want to use the Single address mode, create a new merchant wallet, and append "-single" in your wallet ID. Example wallet ID for single mode: **myshop_single**. 
+- Merchant wallets are default to use Multiple address mode. If you want to use the Single address mode, create a new merchant wallet, and append "-single" in your wallet ID. Example wallet ID for single mode: **myshop_single**.   
 
 **paymentStatus** can have the following value:
 - **0**: Initial status, no payment (or invalid payments);
