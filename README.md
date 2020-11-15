@@ -145,7 +145,7 @@ When the first time of this interface is called for a specific order ID, a new a
 For ETH and ERC20 tokens, your merchant wallet can have two type of different modes: **Single address mode** and **Multiple address mode**. Differences between them are:  
 - Multiple address mode uses different ETH address for each order request, while Single address mode uses the same ETH address for order requests.
 - Multiple address mode can support up to 100k orders per day (totally 100k addresses can be generated), while Single address mode supports less. Single address mode uses different amount for each order equest, and by matching the amount exactly to distinguish different payments.
-- Single address mode needs the user to pay EXACTLY the amount it requests. Pay slightly more or less is not valid.
+- Single address mode needs the user to pay **EXACTLY** the amount it requests. Pay slightly more or less is not valid.
 - For Multiple address mode, balances in other addresses will not be counted in the main address by default. That's to say the balance you see in your Ownbit wallet is less than the total balances you have. The Ownbit merchant wallet is now providing a tool for you to collect those balances into your ETH main address. Find the tool in your wallet's ETH coin page (a link named: Manage Balances on top of the page).
 - Merchant wallets are default to use Multiple address mode. If you want to use the Single address mode, create a new merchant wallet, and append "-single" in your wallet ID. Example wallet ID for single mode: **myshop_single**.   
 
