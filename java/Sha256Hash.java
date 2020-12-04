@@ -95,7 +95,7 @@ public class Sha256Hash implements Serializable, Comparable<Sha256Hash> {
      */
     @SuppressWarnings("deprecation") // the constructor will be made private in the future
     public static Sha256Hash wrapReversed(byte[] rawHashBytes) {
-        return wrap(Utils.reverseBytes(rawHashBytes));
+        return wrap(reverseBytes(rawHashBytes));
     }
 
     /** Use {@link #of(byte[])} instead: this old name is ambiguous. */
@@ -262,12 +262,24 @@ public class Sha256Hash implements Serializable, Comparable<Sha256Hash> {
     public byte[] getBytes() {
         return bytes;
     }
+    
+     /**
+     * Returns a copy of the given byte array in reverse order.
+     */
+    public static byte[] reverseBytes(byte[] bytes) {
+        // We could use the XOR trick here but it's easier to understand if we don't. If we find this is really a
+        // performance issue the matter can be revisited.
+        byte[] buf = new byte[bytes.length];
+        for (int i = 0; i < bytes.length; i++)
+            buf[i] = bytes[bytes.length - 1 - i];
+        return buf;
+    }
 
     /**
      * Returns a reversed copy of the internal byte array.
      */
     public byte[] getReversedBytes() {
-        return Utils.reverseBytes(bytes);
+        return reverseBytes(bytes);
     }
 
     public int compareTo(final Sha256Hash other) {
