@@ -17,6 +17,7 @@
 
 package com.bitbill.util;
 
+import com.google.common.io.BaseEncoding;
 import com.google.common.io.ByteStreams;
 import com.google.common.primitives.Ints;
 
@@ -38,6 +39,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class Sha256Hash implements Serializable, Comparable<Sha256Hash> {
     public static final int LENGTH = 32; // bytes
     public static final Sha256Hash ZERO_HASH = wrap(new byte[LENGTH]);
+    
+    public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
     private final byte[] bytes;
 
@@ -56,7 +59,7 @@ public class Sha256Hash implements Serializable, Comparable<Sha256Hash> {
     @Deprecated
     public Sha256Hash(String hexString) {
         checkArgument(hexString.length() == LENGTH * 2);
-        this.bytes = Utils.HEX.decode(hexString);
+        this.bytes = HEX.decode(hexString);
     }
 
     /**
@@ -80,7 +83,7 @@ public class Sha256Hash implements Serializable, Comparable<Sha256Hash> {
      *         hex string, or if it does not represent exactly 32 bytes
      */
     public static Sha256Hash wrap(String hexString) {
-        return wrap(Utils.HEX.decode(hexString));
+        return wrap(HEX.decode(hexString));
     }
 
     /**
@@ -243,7 +246,7 @@ public class Sha256Hash implements Serializable, Comparable<Sha256Hash> {
 
     @Override
     public String toString() {
-        return Utils.HEX.encode(bytes);
+        return HEX.encode(bytes);
     }
 
     /**
