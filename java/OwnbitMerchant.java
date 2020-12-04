@@ -9,16 +9,19 @@ import java.io.DataOutputStream;
 
 public class OwnbitMerchant {
 	
+	//The two nodes are operating the same way. You can choose to use one of them acorrding to the network speed you reach them.
 	public static final String OWNBIT_MERCHANT_API_URL = "https://walletservice.bittool.com:14443/bitbill/merchant/getCryptoByOrderId";
-	public static final String OWNBIT_MERCHANT_API_KEY = "a40bc292e139b4f1b7f6ad94edd0d878";
-	public static final String OWNBIT_MERCHANT_WALLET_ID = "r81qipv5nd4x";
+	//public static final String OWNBIT_MERCHANT_API_URL = "https://merchantserviceh2.bittool.com:14443/bitbill/merchant/getCryptoByOrderId";
+	
+	public static final String OWNBIT_MERCHANT_API_KEY = "a40bc292e139b4f1b7f6ad94edd0d878"; //replace with your merchant api key
+	public static final String OWNBIT_MERCHANT_WALLET_ID = "r81qipv5nd4x"; //replace with your merchant wallet id
 	public static final String ENGLISH_SEMICOLON = ":";
 	
 	public static void handleOrderExample() {
 		String orderId = "order-example-12345";
 		String orderPrice = "128.35 AUD";
 		//String minPaidRate = null;
-		Double minPaidRate = 0.95d;
+		Double minPaidRate = 0.95d; //means at least pay 95% of the target price
 		
 		String hashStr = OWNBIT_MERCHANT_WALLET_ID + ENGLISH_SEMICOLON
 				+ orderId + ENGLISH_SEMICOLON
