@@ -8,6 +8,18 @@ Ownbit Merchant Wallet helps merchant accept Bitcoin & other cryptocurrencies fo
 3. The customer paid, your Ownbit Merchant Wallet received the payment directly, and you can spend the received payment immediately, since you control the Ownbit Merchant Wallet fully.
 4. The Ownbit Platform call a callback_url (you configured in the Ownbit Merchant Wallet) to notify your website that a payment is received (or a payment is canceled or failed).
 
+### Legal notes
+
+Ownbit Merchant Api is only for selling online goods (including digitial goods). It can not be used in finance services, like Borrowing, financial management, raising funds from the public, recharging on exchanges, etc.
+
+Merchants are also not allowed to engage in any illegal financial activities, such as money laundering and absorbing funds. Otherwise, the relevant account will be permanently disabled.
+
+### 法律说明
+
+Ownbit 商家Api仅用于商家销售在线商品（包括数字商品）。 它不能用于借贷、理财，从公众处筹集资金，交易所充值等金融服务。
+
+商家也不得从事任何非法金融活动，例如洗钱和吸收资金。 否则，相关帐户将被永久禁用。
+
 ### TERMS & DEFINITION
 
 - **apiKey**: The Api Key for your Ownbit Merchant Wallet. It can be found in your Ownbit Merchant Wallet -> Wallet Management -> Merchant Options. ApiKey is used to compute the orderHash. Always keep apiKey secret.
