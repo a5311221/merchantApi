@@ -195,7 +195,7 @@ A list of status codes are:
 
 ### Fee
 
-The Ownbit Platform charges **0.5% - 0.05%** of transaction volume as the processing fee according to how much volume the merchant has processed in total. And the fee must be deposited into your Ownbit Merchant Wallet before hand. If the current fee is insufficient, the Api will return the following error:
+The Ownbit Platform charges **1% - 0.1%** of transaction volume as the processing fee according to how much volume the merchant has processed in total. And the fee must be deposited into your Ownbit Merchant Wallet before hand. If the current fee is insufficient, the Api will return the following error:
 
 ```
 {
@@ -204,17 +204,17 @@ The Ownbit Platform charges **0.5% - 0.05%** of transaction volume as the proces
 }
 ```
 
-Ownbit charges merchants very small fee (0.5% - 0.05%), compared with Bitpay which is 1%. Fee rate for different volume range :
-- **0.5%**: Total processed volume less than 1,000 USD
-- **0.4%**: Total processed volume between 1,000 USD - 10,000 USD
-- **0.3%**: Total processed volume between 10,000 USD - 100,000 USD
-- **0.2%**: Total processed volume between 100,000 USD - 500,000 USD
-- **0.1%**: Total processed volume between 500,000 USD - 1,000,000 USD
-- **0.09%**: Total processed volume between 1,000,000 USD - 5,000,000 USD
-- **0.08%**: Total processed volume between 5,000,000 USD - 10,000,000 USD
-- **0.07%**: Total processed volume between 10,000,000 USD - 50,000,000 USD
-- **0.06%**: Total processed volume between 50,000,000 USD - 100,000,000 USD
-- **0.05%**: Total processed volume > 100,000,000 USD
+Ownbit charges merchants small fees (1% - 0.1%). Fee rate for different volume range :
+- **1%**: Total processed volume less than 1,000 USD
+- **0.9%**: Total processed volume between 1,000 USD - 10,000 USD
+- **0.8%**: Total processed volume between 10,000 USD - 100,000 USD
+- **0.7%**: Total processed volume between 100,000 USD - 500,000 USD
+- **0.6%**: Total processed volume between 500,000 USD - 1,000,000 USD
+- **0.5%**: Total processed volume between 1,000,000 USD - 5,000,000 USD
+- **0.4%**: Total processed volume between 5,000,000 USD - 10,000,000 USD
+- **0.3%**: Total processed volume between 10,000,000 USD - 50,000,000 USD
+- **0.2%**: Total processed volume between 50,000,000 USD - 100,000,000 USD
+- **0.1%**: Total processed volume > 100,000,000 USD
 
 
 ### Callback
