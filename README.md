@@ -14,7 +14,7 @@ Ownbit Merchant Api is only for selling online goods (including digitial goods).
 
 Merchants are also not allowed to engage in any illegal financial activities, such as money laundering and absorbing funds. Otherwise, the relevant account will be permanently disabled.
 
-Legal note: The merchantApi service exclueds China Mainland.
+Legal note: The merchantApi service excludes China Mainland.
 
 ### TERMS & DEFINITION
 
