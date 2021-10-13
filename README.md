@@ -14,12 +14,6 @@ Ownbit Merchant Api is only for selling online goods (including digitial goods).
 
 Merchants are also not allowed to engage in any illegal financial activities, such as money laundering and absorbing funds. Otherwise, the relevant account will be permanently disabled.
 
-### 法律说明
-
-Ownbit 商家Api仅用于商家销售在线商品（包括数字商品）。 它不能用于借贷、理财，从公众处筹集资金，交易所充值等金融服务。
-
-商家也不得从事任何非法金融活动，例如洗钱和吸收资金。 否则，相关帐户将被永久禁用。
-
 ### TERMS & DEFINITION
 
 - **apiKey**: The Api Key for your Ownbit Merchant Wallet. It can be found in your Ownbit Merchant Wallet -> Wallet Management -> Merchant Options. ApiKey is used to compute the orderHash. Always keep apiKey secret.
@@ -389,10 +383,10 @@ public void jsSuccessHandler(String func, String result){
 
 ### Miscellaneous
 
-**Max orders within 1 day**: The maximum new orders a merchant can open within 1 day is **100000**. If you want more, please contact us through email: **hi@bitbill.com**.  
+**Max orders within 1 day**: The maximum new orders a merchant can open within 1 day is **100000**. If you want more, please contact us through email: **support@ownbit.io**.  
 
 ### Technical Support
 
 If you have any problem integrating with Ownbit merchant Api, please feel free to contact us:  
-**By Email**: hi@bitbill.com. 
+**By Email**: support@ownbit.io. 
 **By Telegram**: https://t.me/ownbit
